@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Zara Poon</title>
+
+    <!-- Official PhotoSwipe CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/photoswipe@5/dist/photoswipe.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #333333;
+            font-family: 'Playfair Display', Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px 40px 40px 40px;
+        }
+
+        .site-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 60px;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .site-header .brand {
+            text-align: left;
+        }
+
+        .site-header .brand-link {
+            display: inline-block;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .site-header h1 {
+            font-size: 2.5rem;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .site-header p {
+            font-size: 1.2rem;
+            color: #666666;
+        }
+
+        .site-nav {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .site-nav a {
+            text-decoration: none;
+            color: #333333;
+            font-size: 1rem;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            transition: color 0.2s ease;
+        }
+
+        .site-nav a:hover {
+            color: #999999;
+        }
+
+        @media (max-width: 600px) {
+            .site-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .site-nav {
+                gap: 20px;
+            }
+        }
+
+        /* --- PhotoSwipe Overrides for White Lightbox --- */
+        .pswp {
+            --pswp-bg: #ffffff;
+            --pswp-icon-color: #333333;
+            --pswp-icon-color-secondary: #666666;
+        }
+        .pswp__img,
+        .pswp__img--placeholder {
+            background-color: #ffffff !important;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .projects-list {
+            display: flex;
+            flex-direction: column;
+            gap: 70px;
+        }
+
+        .project {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            font-weight: 500;
+        }
+
+        .slideshow {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            aspect-ratio: 4 / 3;
+            overflow: hidden;
+            background-color: #f2f2f2;
+            cursor: zoom-in;
+            user-select: none;
+        }
+
+        .slideshow-track {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        /* Slideshow animation */
+        .slideshow-slide {
+            position: absolute;
+            inset: 0;
+            transform: translateX(100%);
+            transition: transform 0.7s ease;
+        }
+
+        .slideshow-slide.is-active {
+            transform: translateX(0%);
+        }
+
+        .slideshow-slide.is-prev {
+            transform: translateX(-100%);
+        }
+
+        .slideshow-slide.no-transition {
+            transition: none !important;
+        }
+
+        .slideshow-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Arrow buttons:  hidden until hover */
+        .slideshow-arrow {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 25%;
+            display: flex;
+            align-items: center;
+            background: none;
+            border: none;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        .slideshow:hover .slideshow-arrow {
+            opacity: 1;
+        }
+
+        .slideshow-arrow--prev {
+            left: 0;
+            justify-content: flex-start;
+            padding-left: 14px;
+        }
+
+        .slideshow-arrow--next {
+            right: 0;
+            justify-content: flex-end;
+            padding-right: 14px;
+        }
+
+        .slideshow-arrow svg {
+            width: 28px;
+            height: 28px;
+            filter: drop-shadow(0 0 3px rgba(255,255,255,0.9));
+        }
+
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="brand">
+            <a href="index.html" class="brand-link">
+                <h1>Zara Poon</h1>
+            </a>
+        </div>
+        <nav class="site-nav">
+            <a href="paintings.html">Paintings</a>
+            <a href="photography.html">Photography</a>
+            <a href="exhibitions.html">Exhibitions</a>
+            <a href="projects.html">Projects</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="projects-list">
+
+            <!--
+                PROJECT TEMPLATE
+                =================
+                1. Replace the h2 text with the project name.
+                2. Add one .slideshow-slide per image inside .slideshow-track.
+                   - First slide should have class "slideshow-slide is-active".
+                   - The <img> src is what's shown in the crossfading box.
+                3. Fill in data-pswp-width / data-pswp-height with each full-size
+                   image's real pixel dimensions (required for PhotoSwipe zoom).
+                4. Feel free to change the number of images per project — the
+                   script below auto-detects however many slides are inside
+                   each .slideshow.
+            -->
+
+            <!-- Project 1 -->
+            <div class="project">
+                <h2 class="project-title">Project Name One</h2>
+                <div class="slideshow">
+                    <div class="slideshow-track">
+                        <div class="slideshow-slide is-active"
+                             data-full="media/contact-for-web2000x2000.png"
+                             data-pswp-width="2616" data-pswp-height="2616">
+                            <img src="media/contact-for-web.png" alt="Project One, image 1">
+                        </div>
+                        <div class="slideshow-slide"
+                             data-full="media/khora-for-web2000x2000.png"
+                             data-pswp-width="2616" data-pswp-height="2616">
+                            <img src="media/khora-for-web.png" alt="Project One, image 2">
+                        </div>
+                        <div class="slideshow-slide"
+                             data-full="media/soft-s-for-web2000x2000.png"
+                             data-pswp-width="2616" data-pswp-height="2616">
+                            <img src="media/soft-s-for-web.png" alt="Project One, image 3">
+                        </div>
+                    </div>
+                    <button class="slideshow-arrow slideshow-arrow--prev" aria-label="Previous image">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
+                    <button class="slideshow-arrow slideshow-arrow--next" aria-label="Next image">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project">
+                <h2 class="project-title">Project Name Two</h2>
+                <div class="slideshow">
+                    <div class="slideshow-track">
+                        <div class="slideshow-slide is-active"
+                             data-full="media/MagicEraser_260717_112449-2000x2000.jpeg"
+                             data-pswp-width="2616" data-pswp-height="2616">
+                            <img src="media/MagicEraser_260717_112449.jpeg" alt="Project Two, image 1">
+                        </div>
+                        <div class="slideshow-slide"
+                             data-full="media/soft-s-for-web2000x2000.png"
+                             data-pswp-width="2616" data-pswp-height="2616">
+                            <img src="media/soft-s-for-web.png" alt="Project Two, image 2">
+                        </div>
+                        <div class="slideshow-slide"
+                             data-full="media/contact-for-web2000x2000.png"
+                             data-pswp-width="2616" data-pswp-height="2616">
+                            <img src="media/contact-for-web.png" alt="Project Two, image 3">
+                        </div>
+                    </div>
+                    <button class="slideshow-arrow slideshow-arrow--prev" aria-label="Previous image">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
+                    <button class="slideshow-arrow slideshow-arrow--next" aria-label="Next image">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Add more projects here -->
+
+        </div>
+    </div>
+
+    <!-- PhotoSwipe JavaScript -->
+    <script type="module">
+        import PhotoSwipeLightbox from 'https://unpkg.com/photoswipe@5/dist/photoswipe-lightbox.esm.js';
+
+        const lightbox = new PhotoSwipeLightbox({
+            pswpModule: () => import('https://unpkg.com/photoswipe@5/dist/photoswipe.esm.js'),
+            bgOpacity: 1,
+        });
+        lightbox.init();
+
+        document.querySelectorAll('.slideshow').forEach((slideshow) => {
+            const slideEls = Array.from(slideshow.querySelectorAll('.slideshow-slide'));
+            const prevBtn = slideshow.querySelector('.slideshow-arrow--prev');
+            const nextBtn = slideshow.querySelector('.slideshow-arrow--next');
+
+            const pswpItems = slideEls.map((slide) => ({
+                src: slide.dataset.full,
+                w: parseInt(slide.dataset.pswpWidth, 10),
+                h: parseInt(slide.dataset.pswpHeight, 10),
+            }));
+
+            let current = 0;
+            const AUTOPLAY_DELAY = 3500; 
+            let timer = null;
+
+            function showSlide(index, direction) {
+                const previousIndex = current;
+                current = (index + slideEls.length) % slideEls.length;
+                if (current === previousIndex) return;
+
+                const outgoing = slideEls[previousIndex];
+                const incoming = slideEls[current];
+
+                slideEls.forEach((slide, i) => {
+                    if (i !== previousIndex && i !== current) {
+                        slide.classList.add('no-transition');
+                        slide.classList.remove('is-active', 'is-prev');
+                    }
+                });
+
+                incoming.classList.add('no-transition');
+                if (direction === 'next') {
+                    incoming.classList.remove('is-prev', 'is-active'); 
+                } else {
+                    incoming.classList.remove('is-active');
+                    incoming.classList.add('is-prev'); 
+                }
+
+                void incoming.offsetWidth;
+
+                incoming.classList.remove('no-transition');
+                slideEls.forEach((slide) => slide.classList.remove('no-transition'));
+
+                requestAnimationFrame(() => {
+                    if (direction === 'next') {
+                        outgoing.classList.remove('is-active');
+                        outgoing.classList.add('is-prev');
+                    } else {
+                        outgoing.classList.remove('is-active', 'is-prev'); 
+                    }
+                    incoming.classList.add('is-active');
+                });
+            }
+
+            function next() { showSlide(current + 1, 'next'); }
+            function prev() { showSlide(current - 1, 'prev'); }
+
+            function startAutoplay() {
+                stopAutoplay();
+                timer = setInterval(next, AUTOPLAY_DELAY);
+            }
+            function stopAutoplay() {
+                if (timer) clearInterval(timer);
+            }
+            function restartAutoplay() {
+                startAutoplay();
+            }
+
+            prevBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                prev();
+                restartAutoplay();
+            });
+            nextBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                next();
+                restartAutoplay();
+            });
+
+            slideshow.addEventListener('mouseenter', stopAutoplay);
+            slideshow.addEventListener('mouseleave', startAutoplay);
+
+            // Clicking the image itself opens the full project set in PhotoSwipe,
+            // starting on whichever image is currently showing.
+            slideshow.querySelector('.slideshow-track').addEventListener('click', () => {
+                lightbox.loadAndOpen(current, pswpItems);
+            });
+
+            startAutoplay();
+        });
+    </script>
+</body>
+</html>

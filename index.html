@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Custom Portfolio</title>
+    
+    <!-- Official PhotoSwipe CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/photoswipe@5/dist/photoswipe.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+
+    <style>
+        /* Base Reset and Styling */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #333333;
+            font-family: 'Playfair Display', Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px 40px 40px 40px; 
+        }
+
+        .site-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 80px; 
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .site-header .brand {
+            text-align: left;
+        }
+
+        .site-header .brand-link {
+            display: inline-block;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .site-header h1 {
+            font-size: 2.5rem;
+            font-weight: 500;
+            margin-bottom: 5px; 
+        }
+
+        .site-header p {
+            font-size: 1.2rem;
+            color: #666666; 
+        }
+
+        .site-nav {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .site-nav a {
+            text-decoration: none;
+            color: #333333;
+            font-size: 1rem;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            transition: color 0.2s ease;
+        }
+
+        .site-nav a:hover {
+            color: #999999;
+        }
+
+        @media (max-width: 600px) {
+            .site-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .site-nav {
+                gap: 20px;
+            }
+        }
+
+        .pswp {
+            --pswp-bg: #ffffff; 
+            --pswp-icon-color: #333333; 
+            --pswp-icon-color-secondary: #666666; 
+        }
+        .pswp__img, 
+        .pswp__img--placeholder {
+            background-color: #ffffff !important;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 20px; 
+        }
+
+        .gallery-grid a {
+            display: block;
+            aspect-ratio: 1 / 1; 
+            overflow: hidden; 
+            background-color: #ffffff; 
+        }
+        .gallery-grid a:focus,
+        .gallery-grid a:active {
+            outline: none;
+            -webkit-tap-highlight-color: transparent; 
+        }
+
+        .gallery-grid img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            transition: transform 0.3s ease; 
+        }
+
+        @media (max-width: 900px) {
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .gallery-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="brand">
+            <a href="index.html" class="brand-link">
+                <h1>Zara Poon</h1>
+            </a>
+        </div>
+        <nav class="site-nav">
+            <a href="paintings.html">Paintings</a>
+            <a href="photography.html">Photography</a>
+            <a href="exhibitions.html">Exhibitions</a>
+            <a href="projects.html">Projects</a>
+        </nav>
+    </header>
+    <div class="container">
+        
+        <div class="gallery-grid" id="my-gallery">
+            
+            <!-- href is the large image for the lightbox. data-pswp-width/height are REQUIRED by PhotoSwipe -->
+            <a href="media/contact-for-web2000x2000.png" data-pswp-width="2616" data-pswp-height="2616" target="_blank">
+                <!-- src is the thumbnail displayed on the page -->
+                <img src="media/contact-for-web.png" alt="Description of image 1" />
+            </a>
+
+            <a href="media/khora-for-web2000x2000.png" data-pswp-width="2616" data-pswp-height="2616" target="_blank">
+                <img src="media/khora-for-web.png" alt="Description of image 2" />
+            </a>
+
+            <a href="media/MagicEraser_260717_112449-2000x2000.jpeg" data-pswp-width="2616" data-pswp-height="2616" target="_blank">
+                <img src="media/MagicEraser_260717_112449.jpeg" alt="Description of image 3" />
+            </a>
+           
+            <a href="media/soft-s-for-web2000x2000.png" data-pswp-width="2616" data-pswp-height="2616" target="_blank">
+                <img src="media/soft-s-for-web.png" alt="Description of image 3" />
+            </a>
+
+
+        </div>
+    </div>
+
+    <!-- PhotoSwipe JavaScript -->
+    <script type="module">
+        import PhotoSwipeLightbox from 'https://unpkg.com/photoswipe@5/dist/photoswipe-lightbox.esm.js';
+        
+        const lightbox = new PhotoSwipeLightbox({
+            gallery: '#my-gallery',
+            children: 'a',
+            zoom: false,
+            counter: false,
+            bgOpacity: 1, 
+            pswpModule: () => import('https://unpkg.com/photoswipe@5/dist/photoswipe.esm.js'),
+            mainClass: 'pswp-with-perma-preloader',
+            imageClickAction: 'close',   
+            tapAction: 'close',          
+            doubleTapAction: 'none',     
+            showAnimationDuration: 250,
+            hideAnimationDuration: 250
+        });
+        
+        lightbox.init();
+    </script>
+</body>
+</html>
