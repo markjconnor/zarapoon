@@ -6,8 +6,8 @@
     <title>Projects | Zara Poon</title>
 
     <!-- Official PhotoSwipe CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/photoswipe@5/dist/photoswipe.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="[https://unpkg.com/photoswipe@5/dist/photoswipe.css](https://unpkg.com/photoswipe@5/dist/photoswipe.css)">
+    <link href="[https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap](https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap)" rel="stylesheet">
 
     <style>
         * {
@@ -30,7 +30,6 @@
             align-items: center;
             margin-bottom: 60px;
             gap: 20px;
-            flex-wrap: wrap;
         }
 
         .site-header .brand {
@@ -141,15 +140,21 @@
         }
 
         @media (max-width: 600px) {
+            body {
+                padding: 20px;
+            }
             .site-header {
-                flex-direction: column;
-                align-items: flex-start;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 40px;
             }
             .site-nav {
                 display: none;
             }
             .menu-toggle {
                 display: flex;
+                margin-left: auto;
             }
         }
 
@@ -274,7 +279,6 @@
             height: 28px;
             filter: drop-shadow(0 0 3px rgba(255,255,255,0.9));
         }
-
     </style>
 </head>
 <body>
@@ -381,25 +385,20 @@
                     </button>
                 </div>
             </div>
-
-            <!-- Add more projects here -->
-
         </div>
     </div>
 
     <!-- PhotoSwipe JavaScript -->
     <script type="module">
-        import PhotoSwipeLightbox from 'https://unpkg.com/photoswipe@5/dist/photoswipe-lightbox.esm.js';
+        import PhotoSwipeLightbox from '[https://unpkg.com/photoswipe@5/dist/photoswipe-lightbox.esm.js](https://unpkg.com/photoswipe@5/dist/photoswipe-lightbox.esm.js)';
 
         const lightbox = new PhotoSwipeLightbox({
-            pswpModule: () => import('https://unpkg.com/photoswipe@5/dist/photoswipe.esm.js'),
+            pswpModule: () => import('[https://unpkg.com/photoswipe@5/dist/photoswipe.esm.js](https://unpkg.com/photoswipe@5/dist/photoswipe.esm.js)'),
             bgOpacity: 1,
             gallery: '#my-gallery',
             children: 'a',
             zoom: false,
             counter: false,
-            bgOpacity: 1, 
-            pswpModule: () => import('https://unpkg.com/photoswipe@5/dist/photoswipe.esm.js'),
             mainClass: 'pswp-with-perma-preloader',
             imageClickAction: 'close',   
             tapAction: 'close',          
@@ -491,8 +490,6 @@
             slideshow.addEventListener('mouseenter', stopAutoplay);
             slideshow.addEventListener('mouseleave', startAutoplay);
 
-            // Clicking the image itself opens the full project set in PhotoSwipe,
-            // starting on whichever image is currently showing.
             slideshow.querySelector('.slideshow-track').addEventListener('click', () => {
                 lightbox.loadAndOpen(current, pswpItems);
             });
