@@ -74,13 +74,88 @@
             color: #999999;
         }
 
+        /* Hamburger menu button (mobile only) */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 30px;
+            height: 24px;
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: #333333;
+        }
+
+        /* Mobile nav panel: 70% width, full height, slides in from left */
+        .mobile-nav-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 70%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            z-index: 1002;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 30px;
+            padding: 40px;
+        }
+
+        .mobile-nav-panel.is-open {
+            transform: translateX(0);
+        }
+
+        .mobile-nav-panel a {
+            text-decoration: none;
+            color: #333333;
+            font-size: 1.5rem;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+        }
+
+        /* Scrim covers the remaining 30% (and everywhere else) so a click
+           outside the panel closes it. Left transparent, not visually opaque,
+           so the page behind stays visible. */
+        .mobile-nav-scrim {
+            position: fixed;
+            inset: 0;
+            background: transparent;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 1001;
+        }
+
+        .mobile-nav-scrim.is-open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
         @media (max-width: 600px) {
             .site-header {
                 flex-direction: column;
                 align-items: flex-start;
             }
             .site-nav {
-                gap: 20px;
+                display: none;
+            }
+            .menu-toggle {
+                display: flex;
             }
         }
 
@@ -140,6 +215,11 @@
                 <h1>Zara Poon</h1>
             </a>
         </div>
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
         <nav class="site-nav">
             <a href="paintings.html">Paintings</a>
             <a href="photography.html">Photography</a>
@@ -147,6 +227,15 @@
             <a href="projects.html">Projects</a>
         </nav>
     </header>
+
+    <div class="mobile-nav-scrim" id="mobileNavScrim"></div>
+    <nav class="mobile-nav-panel" id="mobileNavPanel">
+        <a href="paintings.html">Paintings</a>
+        <a href="photography.html">Photography</a>
+        <a href="exhibitions.html">Exhibitions</a>
+        <a href="projects.html">Projects</a>
+    </nav>
+
     <div class="container">
         
         <div class="gallery-grid" id="my-gallery">
@@ -193,6 +282,32 @@
         });
         
         lightbox.init();
+    </script>
+
+    <!-- Mobile nav toggle -->
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileNavPanel = document.getElementById('mobileNavPanel');
+        const mobileNavScrim = document.getElementById('mobileNavScrim');
+
+        function openMobileNav() {
+            mobileNavPanel.classList.add('is-open');
+            mobileNavScrim.classList.add('is-open');
+            menuToggle.setAttribute('aria-expanded', 'true');
+        }
+
+        function closeMobileNav() {
+            mobileNavPanel.classList.remove('is-open');
+            mobileNavScrim.classList.remove('is-open');
+            menuToggle.setAttribute('aria-expanded', 'false');
+        }
+
+        menuToggle.addEventListener('click', () => {
+            const isOpen = mobileNavPanel.classList.contains('is-open');
+            isOpen ? closeMobileNav() : openMobileNav();
+        });
+
+        mobileNavScrim.addEventListener('click', closeMobileNav);
     </script>
 </body>
 </html>
